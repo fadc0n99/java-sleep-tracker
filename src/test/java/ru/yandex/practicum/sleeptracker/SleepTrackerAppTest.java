@@ -27,7 +27,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = badSleepSessionCounter.apply(sessions);
 
-        assertEquals(0L, result.getResult());
+        assertEquals(0L, result.result());
     }
 
     @Test
@@ -40,7 +40,7 @@ class SleepTrackerAppTest {
         BadSleepSessionCounter counter = new BadSleepSessionCounter();
         SleepAnalysisResult result = counter.apply(sessions);
 
-        assertEquals(2L, result.getResult());
+        assertEquals(2L, result.result());
     }
 
     @Test
@@ -55,7 +55,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = chronotypeDeterminant.apply(sessions);
 
-        assertEquals(Chronotype.LARK, result.getResult());
+        assertEquals(Chronotype.LARK, result.result());
     }
 
     @Test
@@ -70,7 +70,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = chronotypeDeterminant.apply(sessions);
 
-        assertEquals(Chronotype.OWL, result.getResult());
+        assertEquals(Chronotype.OWL, result.result());
     }
 
 
@@ -86,7 +86,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = durationSleepSessionAverage.apply(sessions);
 
-        assertEquals(1.0, result.getResult());
+        assertEquals(1.0, result.result());
     }
 
     @Test
@@ -106,7 +106,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = durationSleepSessionAverage.apply(sessions);
 
-        assertEquals(7.75, result.getResult());
+        assertEquals(7.75, result.result());
     }
 
     @Test
@@ -131,7 +131,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = minDurationSleepSession.apply(sessions);
 
-        assertEquals(45L, result.getResult());
+        assertEquals(45L, result.result());
     }
 
     @Test
@@ -156,7 +156,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = maxDurationSleepSession.apply(sessions);
 
-        assertEquals(120L, result.getResult());
+        assertEquals(120L, result.result());
     }
 
     @Test
@@ -181,7 +181,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = sleeplessNightCounter.apply(sessions);
 
-        assertEquals(3L, result.getResult());
+        assertEquals(3L, result.result());
     }
 
     @Test
@@ -206,7 +206,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = sleeplessNightCounter.apply(sessions);
 
-        assertEquals(2L, result.getResult());
+        assertEquals(2L, result.result());
     }
 
     @Test
@@ -226,7 +226,7 @@ class SleepTrackerAppTest {
 
         SleepAnalysisResult result = sleeplessNightCounter.apply(sessions);
 
-        assertEquals(0L, result.getResult());
+        assertEquals(0L, result.result());
     }
 
 }

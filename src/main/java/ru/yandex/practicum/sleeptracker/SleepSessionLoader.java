@@ -35,7 +35,7 @@ public class SleepSessionLoader {
         String[] elements = sessionFromFile.split(";");
 
         if (elements.length != 3) {
-            // log error to file
+            System.out.printf("Некорректный формат строки: %s. Сессия сна не будет создана%n", sessionFromFile);
             return Optional.empty();
         }
 
@@ -48,7 +48,7 @@ public class SleepSessionLoader {
             endSleepTime = LocalDateTime.parse(elements[1], dateTimeFormatter);
             quality = SleepQuality.valueOf(elements[2]);
         } catch (DateTimeParseException | IllegalArgumentException e) {
-            // log error to file
+            System.out.printf("Не удалось извлечь данные. Сессия сна не будет создана. %s%n", e.getCause());
             return Optional.empty();
         }
 

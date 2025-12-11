@@ -8,17 +8,23 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static ru.yandex.practicum.sleeptracker.model.Chronotype.*;
+
 public class ChronotypeDeterminant implements Function<List<SleepSession>, SleepAnalysisResult> {
 
     private static final String DESCRIPTION = "Хронотип пользователя";
 
+    public static final LocalTime OWL_MAX_NIGHT_HOUR = LocalTime.of(23, 0);
+    public static final LocalTime OWL_MIN_MORNING_HOUR = LocalTime.of(9, 0);
+    public static final LocalTime LARK_MAX_EVENING_HOUR = LocalTime.of(22, 0);
+    public static final LocalTime LARK_MIN_MORNING_HOUR = LocalTime.of(7, 0);
+
     @Override
     public SleepAnalysisResult apply(List<SleepSession> sleepSessions) {
-        Map<Chronotype, Long> map = sleepSessions
+        Chronotype chronotypeWithMaxCount = sleepSessions
                 .stream()
-                .collect(Collectors.groupingBy(this::getChronotypeFromSleepSession, Collectors.counting()));
-
-        Chronotype chronotypeWithMaxCount = map.entrySet()
+                .collect(Collectors.groupingBy(this::getChronotypeFromSleepSession, Collectors.counting()))
+                .entrySet()
                 .stream()
                 .max(Map.Entry.comparingByValue())
                 .orElseThrow().getKey();
@@ -30,14 +36,14 @@ public class ChronotypeDeterminant implements Function<List<SleepSession>, Sleep
         LocalTime startSleep = session.getStartTime().toLocalTime();
         LocalTime endSleep = session.getEndTime().toLocalTime();
 
-        if (startSleep.isAfter(LocalTime.of(23, 0))
-                && endSleep.isAfter(LocalTime.of(9, 0))) {
-            return Chronotype.OWL;
-        } else if (startSleep.isBefore(LocalTime.of(22, 0))
-                && endSleep.isBefore(LocalTime.of(7, 0))) {
-            return Chronotype.LARK;
+        if (startSleep.isAfter(OWL_MAX_NIGHT_HOUR)
+                && endSleep.isAfter(OWL_MIN_MORNING_HOUR)) {
+            return OWL;
+        } else if (startSleep.isBefore(LARK_MAX_EVENING_HOUR)
+                && endSleep.isBefore(LARK_MIN_MORNING_HOUR)) {
+            return LARK;
         }
 
-        return Chronotype.PIGEON;
+        return PIGEON;
     }
 }

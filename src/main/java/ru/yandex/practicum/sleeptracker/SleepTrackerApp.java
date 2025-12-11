@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class SleepTrackerApp {
 
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
+
     public static final List<Function<List<SleepSession>, SleepAnalysisResult>> ANALYSIS_FUNCTIONS = List.of(
             new SleepSessionCounter(),
             new MinDurationSleepSession(),
@@ -29,9 +31,7 @@ public class SleepTrackerApp {
         }
 
         String filepath = args[0];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-        SleepSessionLoader loader = new SleepSessionLoader(formatter, new IOFileReaderService());
-
+        SleepSessionLoader loader = new SleepSessionLoader(FORMATTER, new IOFileReaderService());
         List<SleepSession> sleepSessionList;
 
         try {

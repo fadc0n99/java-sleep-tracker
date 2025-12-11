@@ -26,7 +26,7 @@ public class IOFileReaderService implements FileReaderService {
                     .lines()
                     .collect(Collectors.toList());
         } catch (IOException e) {
-            throw new IOException("Ошибка чтения файла" + filename, e);
+            throw new IOException("Ошибка чтения файла " + filename, e);
         }
     }
 }
